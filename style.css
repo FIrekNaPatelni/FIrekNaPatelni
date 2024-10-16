@@ -1,0 +1,95 @@
+body {
+    background-image: url(background.png);
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    text-align: center;
+    background-size: 1000px;
+}
+
+#quiz{
+    width: 75%;
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+    border-radius: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 30px;
+}
+
+
+input{
+    width: 30px;
+    height: 30px;
+    transition: all 0.5s ease-in;
+    background-color: black;
+}
+
+input[type="radio"] {
+    background: red;
+  }
+
+
+
+.question{
+	font-weight: 600;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: rgb(255, 234, 0);
+    font-size: 50px;
+    -webkit-text-stroke: 2px black;
+}
+.answers {
+  margin-bottom: 20px;
+}
+.answers label{
+  display: block;
+}
+button{
+	font-family: sans-serif;
+	font-size: 20px;
+	background-color: rgb(255, 230, 0);
+	color: #000000;
+	border: 0px;
+	border-radius: 15px;
+  width: 25%;
+	padding: 20px;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+#submit:hover{
+	filter: brightness(1.5);
+}
+
+#nobitches{
+  background-color: rgb(255, 0, 0);
+  display: none;
+  position:fixed;
+  margin: 5% auto; 
+  margin-bottom: 100px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  
+ 
+  
+}
+
+#yesbitches{
+  background-color: rgb(25, 0, 255);
+  display: none;
+  position:fixed;
+  margin: 5% auto; /* Will not center vertically and won't work in IE6/7. */
+  margin-bottom: 345px;
+  bottom: 1px;
+  left: 0;
+  right: 0;
+  height: 10cm
+}
+
+h1{
+  -webkit-text-stroke: 2px black;
+  font-size: 100px;
+  color: rgb(255, 221, 0);
+  font-weight: bolder;
+}
