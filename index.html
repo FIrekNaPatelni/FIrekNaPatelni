@@ -1,79 +1,121 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <script type="text/javascript" src="javascript.js"></script>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test na chińską wate cukrową.</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="social.jpg" type="image/x-icon">
-    <script src="javascript.js"></script>
+    <title>Mapa Mali</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        h1 {
+            
+            display: inline-block;
+            margin-left: 20px;
+        }
+        button{
+            height: 35px;
+            width: 80px;
+            border-radius: 25px;
+            border: none;
+            color: rgb(255, 255, 255);
+            background-color: green;
+        }
+        body, html {font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;  cursor: crosshair; background: rgb(255, 255, 255) }
+        #map { width: 100%; height: 96vh; cursor: crosshair; background: rgb(183, 152, 117); }
+        #controls { display: inline-block; background: rgb(255, 255, 255); padding: 10px; border-radius: 5px; z-index: 1000; }
+        #coords { position: absolute; bottom: 10px; left: 10px; background: white; padding: 5px; border-radius: 5px; z-index: 1000; font-size: 14px; }
+        .leaflet-control-attribution.leaflet-control {
+    display: none;
+}
+    </style>
 </head>
 <body>
-  <audio>
-    <source src="social.ogg" type="audio/ogg">
-  </audio>
-  <h1>Test na chińską wate cukrową!!!</h1>
-      <audio id="background-music" src="mao zedong propaganda music Red Sun in the Sky.mp3" autoplay loop>
-          Your browser does not support the audio element.
-      </audio>
 
-      <div id="nobitches">
-        <h1>Wstydz się! Nie zdajesz!</h1>
-        <img src="china.png"  width="500" height="600">
-        <img src="emoji.gif" width="500" height="600">
-      </div>
-      <div id="yesbitches">
-        <h1>Zdajesz!!</h1>
-        <img src="4oJTHP.gif"  width="500" height="600">
-        <img src="social.jpg" width="500" height="600">
-      </div>
-      <div class="content">
-        <div id="quiz"></div>
-        <div id="results"></div>
-      </div>
-      <div id="quiz">
-        <div class="question">
-            <h3>1. Czy taiwan to kraj?</h3>
-            <label><input type="radio" name="q1" value="a"> Nie</label><br>
-            <label><input type="radio" name="q1" value="b"> Tak</label><br>
-        </div>
-
-        <div class="question">
-            <h3>2. Ile możesz grać w gry?</h3>
-            <label><input type="radio" name="q2" value="a"> 1 godzinę</label><br>
-            <label><input type="radio" name="q2" value="b"> 2 godziny</label><br>
-            <label><input type="radio" name="q2" value="c"> 3 godziny</label><br>
-        </div>
-
-        <div class="question">
-            <h3>3. Co się wydarzało w 1989?</h3>
-            <label><input type="radio" name="q3" value="a"> Wojna domowa</label><br>
-            <label><input type="radio" name="q3" value="b"> Śmierć prezydenta</label><br>
-            <label><input type="radio" name="q3" value="c"> Nic</label><br>
-            <label><input type="radio" name="q3" value="d"> Rzeź</label>
-        </div>
-
-        <div class="question">
-          <h3>4. Jakim Chiny są krajem?</h3>
-          <label><input type="radio" name="q4" value="a"> Najlepszym</label><br>
-          <label><input type="radio" name="q4" value="b"> Fajnym</label><br>
-          <label><input type="radio" name="q4" value="c"> Głupim</label><br>
-          <label><input type="radio" name="q4" value="d"> Spierdolonym</label>
-        </div>
-        <div class="question">
-          <h3>5. Czy on ci przypomina kubusia puchatka?</h3>
-          <img width="300" src="presidente.jpg"><br>
-          <label><input type="radio" name="q5" value="a"> Tak</label><br>
-          <label><input type="radio" name="q5" value="b"> Nie</label><br>
-          <label><input type="radio" name="q5" value="c"> Jebać Chiny</label><br>
-        </div>
-
-        <button onclick="submitQuiz()">Prześlij swoją duszę Chińskiej republice ludowej!!!</button>
-
-        <div id="result" style="margin-top: 20px; font-size: 20px;"></div>
+    <h1>Mapa Mali 7th SOG</h1>
+    <div id="controls">
+        <label><input type="checkbox" id="addPoint">Dodawanie punktów</label>
+        <button id="clearPoints">Delete all</button>
     </div>
-</body>
+    <div id="coords">Kordynaty: --</div>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map', {
+            crs: L.CRS.Simple, 
+            minZoom: -2
+        });
+        
+        var bounds = [[0, 0], [1955, 2683]];
+        var image = L.imageOverlay('mapa_mali.png', bounds).addTo(map);
+        map.fitBounds(bounds);
+        
+        var gridLayer = L.gridLayer({ pane: 'tilePane' }).addTo(map);
+        
+        function createGrid() {
+            var interval = 50; 
 
+            for (var x = 0; x <= 2683; x += interval) {
+                L.polyline([[0, x], [1955, x]], { color: 'gray', weight: 1, opacity: 0.5 }).addTo(map);
+            }
+            
+            for (var y = 0; y <= 1955; y += interval) {
+                L.polyline([[y, 0], [y, 2683]], { color: 'gray', weight: 1, opacity: 0.5 }).addTo(map);
+            }
+        }
+        createGrid();
+        
+        var points = [];
+        var lines = [];
+        var addPointMode = document.getElementById('addPoint');
+        var coordsDisplay = document.getElementById('coords');
+        var centerX = 1500;
+        var centerY = 395;
+
+        map.on('mousemove', function(e) {
+            var x = (e.latlng.lng - centerX).toFixed(2);
+            var y = (centerY - e.latlng.lat).toFixed(2);
+            coordsDisplay.textContent = `Kordynaty: X=${x}, Y=${y}`;
+        });
+        
+        map.on('click', function(e) {
+            if (!addPointMode.checked) return;
+            
+            var marker = L.marker(e.latlng, { draggable: true }).addTo(map);
+            points.push(marker);
+            
+            if (points.length > 1) {
+                var lastPoint = points[points.length - 2].getLatLng();
+                var distance = (map.distance(lastPoint, e.latlng) + 200).toFixed(2);
+                var line = L.polyline([lastPoint, e.latlng], { color: 'red' }).addTo(map);
+                lines.push({ line: line, start: lastPoint, end: e.latlng });
+                
+                L.popup()
+                    .setLatLng(e.latlng)
+                    .setContent('Dystans: ' + distance + ' studs')
+                    .openOn(map);
+            }
+            
+            marker.on('click', function() {
+                map.removeLayer(marker);
+                points = points.filter(m => m !== marker);
+                
+                // Usuwanie powiązanych linii
+                lines = lines.filter(l => {
+                    if (l.start.equals(marker.getLatLng()) || l.end.equals(marker.getLatLng())) {
+                        map.removeLayer(l.line);
+                        return false;
+                    }
+                    return true;
+                });
+            });
+        });
+        
+        document.getElementById('clearPoints').addEventListener('click', function() {
+            points.forEach(marker => map.removeLayer(marker));
+            points = [];
+            lines.forEach(l => map.removeLayer(l.line));
+            lines = [];
+        });
+    </script>
+</body>
 </html>
