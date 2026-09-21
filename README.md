@@ -1,14 +1,9 @@
-### 💻 About Me
-- 🎮 Mid-level **Roblox Scripter** (Lua)
-- 🐍 Learning **Python**
-- 🌐 Exploring **static web development**
-- 🔫 Interested in **military & LEA**
-  
-### 📈 My Goals
-- Learn modern web frameworks (React, Node.js) in the future
-- Improve at reading & understanding **Roblox documentation**  
-- Learn to design scalable game mechanics and organized code  
+### About Me
 
+I'm a mid-level Roblox developer working primarily with Lua.
+I also build Discord bots in Python and work on web projects using Node.js and EJS.
+I'm interested in backend development, game systems, automation, military topics and LEA
+  
 ## 🌐 Socials:
 [![Discord](https://img.shields.io/badge/Discord-%237289DA.svg?logo=discord&logoColor=white)](https://discord.gg/mr_firek) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?logo=YouTube&logoColor=white)](https://youtube.com/@FirekDev) 
 
